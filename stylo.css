@@ -1,0 +1,23 @@
+html,
+body,
+header,
+#intro {
+    height: 100%;
+}
+
+#intro {
+    background: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full%20page/img%20%283%29.jpg")no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.botonesClinicas{
+    height: 120px;
+    background-image: url(https://i.imgur.com/wKKbJz6.jpg);
+    background-size: cover;
+    background-position: center;
+    text-shadow: 2px 1px 3px black;
+    margin: 15px !important;
+}

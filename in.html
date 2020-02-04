@@ -1,16 +1,209 @@
 <!doctype html>
-<html>
+<html ng-app="ReservasV1">
     <head>
         <meta charset="utf-8">
         <meta name="description" content="Reserva Consultorios para Profesionales">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Reserva consultorios Profesionales</title>
-        <link rel="stylesheet" href="style.css">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+		<!-- Bootstrap core CSS -->
+		  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
+		<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="node_modules/mdbootstrap/css/mdb.min.css">        
+        <link rel="stylesheet" href="stylo.css">
         <link rel="author" href="humans.txt">
     </head>
-    <body>
-        
+    <body ng-controller="UsuarioControlador as ctrl">
+       
+	<div class="container">
+
+		<div class="row">
+		  <div class="col-sm-12 col-md-12 " ng-if="!ctrl.LogOk">
+		    <hr>
+		    <div class="card" >
+
+			  <h5 class="card-header info-color white-text text-center py-4">
+			    <strong>Ingreso Clientes</strong>
+			  </h5>
+
+			  <!--Card content-->
+			  <div class="card-body">
+				<md-content layout-gt-sm="row" layout-padding ng-cloak>
+					<!-- Form -->
+				    <form class="text-center" style="color: #757575;" action="#!">
+						<div class="d-flex flex-column bd-highlight text-left" >
+						
+							<md-input-container>
+								<label for="materialLoginFormEmail">Email</label>
+								<input id="materialLoginFormEmail" type="email" ng-model="ctrl.e">
+							</md-input-container>
+
+							<md-input-container>
+								<label>Password</label>
+								<input type="password" ng-model="ctrl.pw" id="vpw">
+							</md-input-container>
+						
+							<div>
+							<!-- Remember me -->
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="materialLoginFormRemember">
+									<label class="form-check-label" for="materialLoginFormRemember">Mantener Sesion</label>
+								</div>
+							</div>
+							<div>
+								<!-- Forgot password -->
+								<a href="">No Recuerda el Password?</a>
+							</div>
+						</div>
+						<!-- Ingreso Clientes button -->
+						<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"  ng-click="ctrl.Login()">Ingreso Clientes</button>
+					</form>
+					<!-- Form -->
+				</md-content>	
+
+
+
+			  </div>
+			</div>
+		  </div>
+
+			<div class="col-sm-12" style="display: none;">
+				<div class="card">
+				    <h5 class="card-header info-color white-text text-center py-4">
+				        <strong>Sign up</strong>
+				    </h5>
+
+				    <!--Card content-->
+				    <div class="card-body px-lg-5 pt-0">
+					<!-- Default form register -->
+					    <form class="text-center border border-light p-5">
+
+					      <p class="h4 mb-4">Sign up</p>
+
+					      <div class="form-row mb-4">
+					        <div class="col">
+					          <!-- First name -->
+					          <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Nombre">
+					        </div>
+					        <div class="col">
+					          <!-- Last name -->
+					          <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Apellido">
+					        </div>
+					      </div>
+
+					      <!-- E-mail -->
+					      <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail">
+
+					      <!-- Password -->
+					      <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+					      <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+					        Necesita mas de 8 caracteres
+					      </small>
+
+					      <!-- Phone number -->
+					      <input type="text" id="defaultRegisterPhonePassword" class="form-control" placeholder="Celular" aria-describedby="defaultRegisterFormPhoneHelpBlock">
+					      <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+					        Optional - Comunicacion Directa
+					      </small>
+
+					      
+					      <!-- Sign up button -->
+					      <button mdbBtn color="info" block="true" class="my-4" type="submit"
+					      	ng-click="registrarUsuario()">Sign in</button>
+
+
+					      <!-- Social register -->
+					      <!-- <p>or sign up with:</p>
+
+					      <a type="button" class="light-blue-text mx-2">
+					        <mdb-icon fab icon="facebook"></mdb-icon>
+					      </a>
+					      <a type="button" class="light-blue-text mx-2">
+					        <mdb-icon fab icon="twitter"></mdb-icon>
+					      </a>
+					      <a type="button" class="light-blue-text mx-2">
+					        <mdb-icon fab icon="linkedin"></mdb-icon>
+					      </a>
+					      <a type="button" class="light-blue-text mx-2">
+					        <mdb-icon fab icon="github"></mdb-icon>
+					      </a>
+						  -->
+					      <hr>
+
+					      <!-- Terms of service -->
+					      <p>Visite aqui 
+					        <em>Registro</em> Condiciones 
+					        <a href="" target="_blank">terms of service</a></p>
+
+					    </form>
+					    <!-- Default form register -->
+
+				    </div>
+				</div>
+			</div>
+
+			<hr>
+			
+			<div class="col-md-12 col-sm-12" id="Registro" ng-show="ctrl.LogOk">
+				<br>
+				<md-divider></md-divider>
+				<div class="card">
+					<md-content layout="row" layout-xs="column" ng-cloak>
+
+						<div layout="column" flex="" flex-order="0" >
+							<md-subheader class="text-center">Seleccione Fecha para Reserva</md-subheader>
+							<md-calendar md-mode="day" md-min-date="ctrl.myDate" ng-model="ctrl.startDate" ng-change="ctrl.seleccionFecha(ctrl.FECHA)"></md-calendar>
+						</div>
+
+						<div layout="column" flex="" flex-order="1" >
+							<md-subheader class="text-center">Horarios Disponibles 
+							<br> {{ctrl.startDate | date}}</md-subheader>
+												
+							<md-divider ></md-divider> 
+						    <section id="resultados" layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+						        <!-- <md-button class="md-fab" aria-label="">0</md-button> -->
+						    </section>
+						    <md-divider></md-divider>
+							
+							<button class="btn btn-success" ng-click="ctrl.confirmarTurno()">Confirmar Turno</button>
+
+
+						</div>
+					</md-content>
+				</div>	
+				<br>
+				<md-divider></md-divider>
+				<div class="card">
+					<md-content layout="row" layout-xs="column" ng-cloak>
+						<div layout="column" flex="" flex-order="0" >
+							<md-subheader class=""></md-subheader>
+							<md-calendar md-mode="day" md-min-date="ctrl.myDate" ng-model="ctrl.fecha" ng-change=""></md-calendar>
+						</div>
+						<div layout="column" flex="" flex-order="0" >
+							<button class="btn btn-dark" ng-repeat="(key, value) in TurnosRegistro"></button>
+						</div>
+
+					</md-content>
+				</div>	
+	
+			</div>
+			
+		</div>
+	</div>
+
+		<script src="node_modules/jquery/dist/jquery.js"></script>	
+		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>	
+		<script src="node_modules/moment/moment.js"></script>
+
         <script src="node_modules/angular/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+		<!-- Angular Material Library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+
         <script src="main.js"></script>
     </body>
 </html>
+	

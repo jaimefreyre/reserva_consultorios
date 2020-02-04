@@ -1,0 +1,17 @@
+//Modelo Json de registros de turnos por fecha
+//Los archivos se van a llamar FYA + dia mes y año en formaro XXXXXXXX
+
+[{
+	"Fecha": "number", 
+	"Consultorios": [
+		{"Nombre":"", "Detalle":"string", "direccion":"", "Regla":"", 
+			"horario": [/*Hora numerica 8, 9 asi de 8 a 21 QUE ESTAN OCUPADAS*/]
+		},
+		{"Nombre":"", "Detalle":"string", "direccion":"", "Regla":"", "horario": []},
+		{"Nombre":"", "Detalle":"string", "direccion":"", "Regla":"", "horario": []},
+		{"Nombre":"", "Detalle":"string", "direccion":"", "Regla":"", "horario": []},
+		{},
+		{},
+		{}
+	]
+}]

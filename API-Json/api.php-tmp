@@ -1,0 +1,67 @@
+<?php
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+
+//Se envia el Nombre del Archivo y se crea una cadena con la que se recuperara del servidor
+$archivo = 'F/'.$_REQUEST['archivo'].'.json';
+//Se envia el nombre de la Accion
+$accion = $_REQUEST['accion'];
+
+//Informacion Post
+$DATOs    = file_get_contents("php://input");
+$DATOsPHP = json_decode($DATOs);
+
+//Abrimos el Archivo Json que recupera la Base para utilizarla
+$json      = file_get_contents(utf8_encode($archivo));
+$objetoPHP = json_decode($json);
+
+//Funcion que codifica la entrada y suplanta lo que esta escrito en el archivo
+//con el objeto que creo la merge de informacion del archivo y los datos de entrada
+function guardar_json($data, $archivo) {
+	$final = json_encode($data);
+	$fp    = fopen($archivo, "w+");
+	fwrite($fp, $final);
+	fclose($fp);
+	return $final;
+};
+
+//Opcional que verifica si ingreso alguna accion de parte de la peticion
+//al script
+if ($accion) {
+	if (!$json) {
+		$DATOsPHP->Fecha = $_REQUEST['archivo'];
+		print_r(guardar_json($DATOsPHP, $archivo));
+		return;
+	};
+
+	switch ($accion) {
+			//Leer Json
+		case 'LJSN':
+			print_r($json);
+			break;
+			//Actualizar dato Interno del Json
+		case 'AJSN':
+			$request_body = file_get_contents('php://input');
+			if ($request_body != false) {
+				//Trabajo con $objetoPHP y json_decode($request_body) );
+				//Y luego el $resultadoSet de ese SeT se Pisa en el lugar de la peticion
+				//print_r( guardar_json($resultadoSet,$archivo) );
+			}
+			break;
+			//Crear y pisa Json
+		case 'CJSN':
+			$request_body = file_get_contents('php://input');
+			print_r(guardar_json(json_decode($request_body), $archivo));
+			break;
+
+		default:
+			// code...
+			break;
+	}
+}
+//Respuesta erronea desde el servidor informando el error de Comunicacion de la peticion
+ else {
+	print_r('Error no se leyo accion en la peticion entrante');
+};
+?>
